@@ -40,8 +40,8 @@ export interface xAP_DeviceNode extends Node {
   //subscribers: ((msg: xAP.message) => void )[]
 
   register(nodeID: NodeId): void
-  subscribe(node: xAP_InNode, fn: (message: xAP.message) => void)
-  xap_send(msg: xAP.message)
-  xap_send_block(msgClass: string, block: xAP.block, target?: string, subdeviceSource?: string, subdeviceID?: number)
+  subscribe(node: xAP_InNode, fn: (message: xAP.message) => void): void
+  xap_send(msg: xAP.message): void
+  xap_send_block(msgClass: string, block: xAP.block, target?: string, subdeviceSource?: string, subdeviceID?: number): void
 
 }

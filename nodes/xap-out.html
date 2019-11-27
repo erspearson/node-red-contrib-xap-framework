@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('xap-out', {
+      category: 'xAP',
+      color: '#3FADB5',
+      defaults: {
+          name: { value: '' },
+          device: { type: 'xap-device', required: true },
+      },
+      inputs:1,
+      outputs:0,
+      icon: "bridge.png",
+      align: 'right',
+      label: function() {  return this.name || 'xAP Out' },
+      labelStyle: function() { return this.name ? 'node_label_italic' : ' '},
+      paletteLabel: 'xAP Out'
+    });
+</script>
+
+<script type="text/x-red" data-template-name="xap-out">
+<div class="form-row">
+  <label for="node-input-device"><i class="fa fa-globe"></i>&nbsp;Network</label>
+  <input type="text" id="node-input-device">
+</div>
+<div class="form-row">
+  <label for="node-input-name"><i class="icon-tag"></i>&nbsp;Name</label>
+  <input type="text" id="node-input-name" placeholder="Name">
+</div>
+</script>
+
+<script type="text/x-red" data-help-name="xap-out">
+<p>Send xAP network messages</p>
+</script>

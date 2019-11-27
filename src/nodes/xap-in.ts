@@ -26,7 +26,7 @@ export = function (RED: Red) {
         if(passFilters && filterClass  && message.class.toLowerCase().indexOf(filterClass) != 0) { passFilters = false }
         if(passFilters && filterSource && message.source.toLowerCase().indexOf(filterSource) != 0) { passFilters = false }
         if(passFilters && filterTarget && !message.header.target) { passFilters = false }
-        if(passFilters && filterTarget && message.header.target.toLowerCase().indexOf(filterClass) != 0) { passFilters = false }
+        if(passFilters && filterTarget && message.header.target && message.header.target.toLowerCase().indexOf(filterClass) != 0) { passFilters = false }
         
         if(passFilters) {
           let msg = { payload: message }
