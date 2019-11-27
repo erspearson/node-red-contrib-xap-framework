@@ -2,7 +2,7 @@
   "compilerOptions": {
       "target": "es6",
       "module": "commonjs",
-      "rootDir": "src/nodes",
+      "rootDir": "src",
       "outDir": "nodes",
       "esModuleInterop": true,
       "composite": false,
@@ -14,6 +14,6 @@
   },
 
   "include": [
-      "src/nodes/*.ts"
+      "src/*.ts"
   ]
 }

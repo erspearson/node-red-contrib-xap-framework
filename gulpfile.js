@@ -4,7 +4,7 @@ const rename = require("gulp-rename")
 const debug = require("gulp-debug")
  
 function buildNodeHtml(done) {
-  src(['src/nodes/*.html', '!src/nodes/*.form.html', '!src/nodes/*.help.html'])
+  src(['src/*.html', '!src/*.form.html', '!src/*.help.html'])
   .pipe(include())
   .pipe(debug())
   .pipe(dest('./nodes'))
