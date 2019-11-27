@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    RED.nodes.registerType('xap-out', {
+      category: 'xAP',
+      color: '#3FADB5',
+      defaults: {
+          name: { value: '' },
+          device: { type: 'xap-device', required: true },
+      },
+      inputs:1,
+      outputs:0,
+      icon: "bridge.png",
+      align: 'right',
+      label: function() {  return this.name || 'xAP Out' },
+      labelStyle: function() { return this.name ? 'node_label_italic' : ' '},
+      paletteLabel: 'xAP Out'
+    });
+</script>
+
+<script type="text/x-red" data-template-name="xap-out">
+@@include('./xap-out.form.html')
+</script>
+
+<script type="text/x-red" data-help-name="xap-out">
+@@include('./xap-out.help.html')
+</script>

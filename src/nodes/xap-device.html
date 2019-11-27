@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    RED.nodes.registerType('xap-device', {
+        category: 'config',
+        defaults: {
+            name: { value: '' },
+            vendor: { value: '', required: true },
+            device: { value: '', required: true },
+            instance: { value: '', required: true },
+            hbInterval: { value: '60', validate:RED.validators.number()},
+        },
+        label: function() { 
+            if(this.name) { return this.name }
+            return `${this.vendor}.${this.device}.${this.instance}`;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="xap-device">
+@@include('./xap-device.form.html')
+</script>
+
+<script type="text/x-red" data-help-name="xap-device">
+@@include('./xap-device.help.html')
+</script> 

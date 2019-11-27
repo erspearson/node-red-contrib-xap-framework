@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "outDir": "nodes"
+    },
+
+    "references": [
+        { "path": "../xap-framework" }
+    ],
+    
+    "include": [
+        "src/nodes/*.ts"
+    ],
+
+}
