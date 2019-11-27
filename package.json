@@ -29,7 +29,8 @@
   "scripts": {
     "build:html": "gulp buildNodeHtml",
     "build:js": "tsc -p .",
-    "prepublishOnly": "run-p build:*"
+    "build": "run-s build:*",
+    "prepublishOnly": "build"
   },
   "repository": {
     "type": "git",
