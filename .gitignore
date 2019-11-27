@@ -1,8 +1,5 @@
 # generated code
-lib/
-*.map
-test/*.js
-examples/*.js
+nodes/
 
 # Logs
 logs
