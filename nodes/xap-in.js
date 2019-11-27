@@ -21,7 +21,7 @@ module.exports = function (RED) {
                 if (passFilters && filterTarget && !message.header.target) {
                     passFilters = false;
                 }
-                if (passFilters && filterTarget && message.header.target.toLowerCase().indexOf(filterClass) != 0) {
+                if (passFilters && filterTarget && message.header.target && message.header.target.toLowerCase().indexOf(filterClass) != 0) {
                     passFilters = false;
                 }
                 if (passFilters) {
@@ -32,4 +32,3 @@ module.exports = function (RED) {
         }
     });
 };
-//# sourceMappingURL=xap-in.js.map

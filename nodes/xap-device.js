@@ -60,18 +60,21 @@ module.exports = function (RED) {
         this.subscribe = function (subscriber, callback) {
             subscriberCount++;
             subscribers.push(callback);
-            // the first subscription casuses a connection to the socket
+            // the first subscription causes a connection to the socket
             if (subscriberCount == 1) {
-                network.on('message', (message) => {
-                    //thisNode.log(`send to ${thisNode.subscribers.length} subscribers`)
-                    subscribers.forEach(s => { s(message); });
-                });
+                if (network) {
+                    network.on('message', (message) => {
+                        //thisNode.log(`send to ${thisNode.subscribers.length} subscribers`)
+                        subscribers.forEach(s => { s(message); });
+                    });
+                }
             }
         };
         this.on('close', done => {
-            network.disconnect();
+            if (network) {
+                network.disconnect();
+            }
             done();
         });
     });
 };
-//# sourceMappingURL=xap-device.js.map

@@ -42,4 +42,3 @@ module.exports = function (RED) {
         });
     });
 };
-//# sourceMappingURL=xap-out.js.map
