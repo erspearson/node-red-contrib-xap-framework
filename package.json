@@ -30,7 +30,7 @@
     "build:html": "gulp buildNodeHtml",
     "build:js": "tsc -p .",
     "build": "run-s build:*",
-    "prepublishOnly": "build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
