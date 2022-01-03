@@ -2,7 +2,7 @@
   "name": "node-red-contrib-xap-framework",
   "description": "Send and receive xAP home automation messages with Node-RED and xap-framework",
   "author": "Edward Pearson",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "license": "MIT",
   "keywords": [
     "node-red",
