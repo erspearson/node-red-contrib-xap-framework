@@ -17,6 +17,7 @@ export = function (RED: Red) {
     const filterTarget = props.filterTarget.toLowerCase()
     
     if(device) {
+      this.status({fill:"yellow", shape:"dot", text:"awaiting hub connection"})
       device.register(this.id)
       
       // Subscribe to receive xAP messages via the device node

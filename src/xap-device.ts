@@ -57,7 +57,8 @@ export = function (RED: Red) {
           clients.forEach( (c) => {
             var clientNode = RED.nodes.getNode(c)
             if(clientNode) { clientNode.status({fill:'red',shape:'dot',text:'lost connection'}) }
-          })        })
+          })
+        })
         
         this.log(`xAP connecting as ${this.vendor}.${this.device}`)
         network.connect()

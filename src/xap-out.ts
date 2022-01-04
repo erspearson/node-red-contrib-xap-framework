@@ -11,7 +11,10 @@ export = function (RED: Red) {
 
     // get a reference to the xap-device configuration node using its ID
     const device = RED.nodes.getNode(props.device) as xAP_DeviceNode
-    if(device) { device.register(this.id) }
+    if(device) {
+      this.status({fill:"yellow", shape:"dot", text:"awaiting hub connection"})
+      device.register(this.id)
+    }
 
     this.on('input', (msg) => {
       let p = msg.payload
