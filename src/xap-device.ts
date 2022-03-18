@@ -14,7 +14,8 @@ export = function (RED: Red) {
     this.instance = props.instance
     this.uid = xAP.generateUID13(`${props.vendor}.${props.device}.${props.instance}`)
 
-    let network: xAP.networkConnection | null = null
+    let network : xAP.networkConnection | null = null
+    let connected : boolean = false
 
     this.xap_send = function(msg: xAP.message)
     {
@@ -25,10 +26,15 @@ export = function (RED: Red) {
       if(network) { network.sendBlock(msgClass, block, target, subdeviceSource, subdeviceID) }
     }
 
-    let clients: NodeId[] = []
+    let clients: { [key: string]: NodeId } = {}
 
     this.register = function(client: NodeId) {
-      clients.push(client)
+      clients[client] = client
+
+      if(connected) {
+        const clientNode = RED.nodes.getNode(client)
+        if(clientNode) { clientNode.status({fill:'green',shape:'dot',text:'node-red:common.status.connected'}) }
+      }
 
       if(!network) {
 
@@ -44,20 +50,22 @@ export = function (RED: Red) {
 
         network.on('connected', () => {
           this.log('xAP connected')
+          connected = true
 
-          clients.forEach( (c) => {
-            var clientNode = RED.nodes.getNode(c)
+          for(const c of Object.keys(clients)) {
+            const clientNode = RED.nodes.getNode(c)
             if(clientNode) { clientNode.status({fill:'green',shape:'dot',text:'node-red:common.status.connected'}) }
-          })
+          }
         })
         
         network.on('connection-lost', () => {
           this.log('xAP lost connection to hub or network')
+          connected = false
           
-          clients.forEach( (c) => {
-            var clientNode = RED.nodes.getNode(c)
+          for(const c of Object.keys(clients)) {
+            const clientNode = RED.nodes.getNode(c)
             if(clientNode) { clientNode.status({fill:'red',shape:'dot',text:'lost connection'}) }
-          })
+          }
         })
         
         this.log(`xAP connecting as ${this.vendor}.${this.device}`)
@@ -66,21 +74,19 @@ export = function (RED: Red) {
     }
 
     // List of callback functions to xap-in nodes wanting messages
-    let subscriberCount = 0
-    let subscribers: ((msg: xAP.message) => void )[] = []
+    let subscribers: { [key: string]: ((msg: xAP.message) => void ) } = {}
 
     // xap-in nodes call subscribe to start receiving messages
-    this.subscribe = function(subscriber, callback) {
-      subscriberCount++
-      subscribers.push(callback)
+    this.subscribe = function(xAP_InNode, callback) {
+      subscribers[xAP_InNode.id] = callback
 
       // the first subscription causes a connection to the socket
-      if(subscriberCount == 1) {
-
+      if(Object.keys(subscribers).length == 1) {
         if(network) {
           network.on('message', (message) => {
-            //thisNode.log(`send to ${thisNode.subscribers.length} subscribers`)
-            subscribers.forEach( s => { s(message) })
+            for(const s of Object.keys(subscribers)) {
+              subscribers[s](message)
+            }
           })
         }
       }
